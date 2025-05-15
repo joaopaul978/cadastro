@@ -14,7 +14,7 @@ import router from "next/router";
 //const API_URL =  process.env.NODE_ENV === 'development' ? 'http://localhost:8080/admin/api' : '/admin-app/admin/api';
 
 const Api = Axios.create({
-    baseURL:`http://localhost:3001/`
+    baseURL:`https://cadapi-oz3i.vercel.app/`
 }); 
 
 Api.interceptors.request.use((req) => {
