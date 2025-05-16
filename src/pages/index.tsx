@@ -31,7 +31,7 @@ const Home = () => {
     campo1_nome: '', campo2_nome: '', campo3_nome: '', campo1_tam: 0, campo2_tam: 0, campo3_tam: 0,campo4_nome: '',campo5_nome: '',campo6_nome: '', urlperf: '', urlbras: '',ver:'', calc_imovel:'',desconto_iptu:'',vvi:''};
   const [entidade, setEntidade] = useState<IEntidade>(initEntidad); */
 
-  const { username, password } = state;
+  //const { username, password } = state;
   const [box, setBox] = React.useState(0);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -88,11 +88,28 @@ const {'CadsToken': token} = parseCookies();
   const tentar = () => {
     router.push(`/?ecode=`)
   }
+  // const signIn = async ({ username, password }: SignInData) => {
+  //   //const {'ecode': id_ent} = parseCookies();
+  //   let id_ent = provid.entidade?.id_ent;
+  //   await Api.post("/login", { id_ent, username, password })
+  //     .then((resp) => { //pra lê a tipagem da bibiblioteca cookies, só instalar npm add @types/cooki -D              
+  //       setCookie(undefined, 'CadsToken', resp.data.Token_acesso, {
+  //         maxAge: 60 * 60 * 1, //1 hora    
+  //       });     
+  //     }).catch(() => { });
+  // }
 
-  const signIn = async ({ username, password }: SignInData) => {
+   // const handleLogin = async (e: any) => {
+  //   e.preventDefault();
+  //   const data = { state.username, state.password }
+  //   await signIn(data)
+  // }
+
+  const signIn = async () => {
     //const {'ecode': id_ent} = parseCookies();
     let id_ent = provid.entidade?.id_ent;
-    await Api.post("/login", { id_ent, username, password })
+    let username = state.username; let password = state.password; 
+    await Api.post("/login", { id_ent,username, password })
       .then((resp) => { //pra lê a tipagem da bibiblioteca cookies, só instalar npm add @types/cooki -D              
         setCookie(undefined, 'CadsToken', resp.data.Token_acesso, {
           maxAge: 60 * 60 * 1, //1 hora    
@@ -119,11 +136,7 @@ const {'CadsToken': token} = parseCookies();
   //   await signInAdm(data)
   // }
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
-    const data = { username, password }
-    await signIn(data)
-  }
+ 
 
   const enviar = async (e: any) => {
     e.preventDefault()
@@ -238,8 +251,8 @@ const {'CadsToken': token} = parseCookies();
               <div className="container_center">
                 <div>
                   <div className="row">
-                    <div className='login'>  <button onClick={()=>jpteste()}>teste</button>               
-                      <Form onSubmit={handleLogin}>
+                    <div className='login'>    <button onClick={()=>jpteste()}>teste</button>           
+                  
                         <div className='cab'>
                           {/* <Image quality={75} alt='preview' unoptimized={true}
                             loader={() => !provid.entidade?.caminho ? '/simg.jpg' : provid.entidade?.urlbras + provid.entidade?.caminho}
@@ -258,15 +271,15 @@ const {'CadsToken': token} = parseCookies();
                         <div>
                           <Form.Group className="mb-3" controlId="formGroupEmail">
                             <Form.Label>Usuário</Form.Label>
-                            <Form.Control type="username" placeholder="Enter User" name="username" value={username} onChange={handleInput} />
+                            <Form.Control type="username" placeholder="Enter User" name="username" value={state.username} onChange={handleInput} />
                           </Form.Group>
                           <Form.Group className="mb-3" controlId="formGroupPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" name="password" value={password} onChange={handleInput} />
+                            <Form.Control type="password" placeholder="Password" name="password" value={state.password} onChange={handleInput} />
                           </Form.Group>
                           <div className="d-grid gap-2">
                             <span>Conectar-se!</span>
-                            <Button variant="primary" size="lg" type="submit">
+                            <Button variant="primary" size="lg" type="submit" onClick={signIn}>
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
                                 <path fillRule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
@@ -276,7 +289,7 @@ const {'CadsToken': token} = parseCookies();
                         </div>
                         <hr />
                         <span>© Copyright 2024</span>
-                      </Form>
+                     
                     </div>
                   </div>
                 </div>
