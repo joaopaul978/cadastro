@@ -138,7 +138,12 @@ const {'CadsToken': token} = parseCookies();
     const { name, value } = e.target;
     setState({ ...state, [name]: value })
   };
-
+  const jpteste = () => {
+    Api.get(`/getAllEnt2/`).then((res) => {
+        console.log(res.data)
+    }
+     ).catch(() => { });
+  }
   return (
     <>
       <div className="flex-1">
@@ -233,7 +238,7 @@ const {'CadsToken': token} = parseCookies();
               <div className="container_center">
                 <div>
                   <div className="row">
-                    <div className='login'>               
+                    <div className='login'>  <button onClick={()=>jpteste()}>teste</button>               
                       <Form onSubmit={handleLogin}>
                         <div className='cab'>
                           {/* <Image quality={75} alt='preview' unoptimized={true}
